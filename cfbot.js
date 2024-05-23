@@ -6,9 +6,9 @@ const puppeteer = require("puppeteer");
   await page.click('a[href="/enter?back=%2F"]');
   await new Promise((r) => setTimeout(r, 1000));
 
-  await page.type("#handleOrEmail", "username");
+  await page.type("#handleOrEmail", "sargeDevX");
   await new Promise((r) => setTimeout(r, 2000));
-  await page.type("#password", "password");
+  await page.type("#password", "sarthak2004cf");
   await page.click(".submit");
 
   // await page.focus(".notice");
@@ -21,7 +21,24 @@ const puppeteer = require("puppeteer");
   console.log("after waiting");
   while (true) {
     await page.click('a[href="/problemset"]');
-    await new Promise((r) => setTimeout(r, 4000));
+    await new Promise((r) => setTimeout(r, 2000));
+    // await page.screenshot("initial.png");
+    const checkboxSelector = "#change-hide-solved-status";
+    await page.evaluate(() => {
+      const box = document.querySelector("#change-hide-solved-status");
+      if (!box.checked) {
+        box.click();
+      }
+    }, checkboxSelector);
+    // await page.evaluate((res) => {
+    //   if(!res)
+    //     {
+    //       const box = document.querySelector("#change-hide-solved-status");
+
+    //     }
+    // }, res);
+    await new Promise((r) => setTimeout(r, 5000));
+
     await page.click(
       "#pageContent > div.datatable > div:nth-child(6) > table > tbody > tr:nth-child(2) > td.dark.right > a"
     );
@@ -50,10 +67,16 @@ const puppeteer = require("puppeteer");
     await page.click(
       "#sidebar > div > div:nth-child(3) > form > div:nth-child(4) > input[type=submit]:nth-child(1)"
     );
-    await new Promise((r) => setTimeout(r, 4000));
+    await new Promise((r) => setTimeout(r, 2000));
     // await page.click(
     //   "#pageContent > div.datatable > div:nth-child(6) > table > tbody > tr:nth-child(2) > td.id-cell.dark.left > a"
     // );
+    // #pageContent > div:nth-child(21) > div > ul > li:nth-child(7)
+    await page.waitForSelector(".pagination>ul>li:last-child");
+    await new Promise((r) => setTimeout(r, 1000));
+
+    await page.click(".pagination>ul>li:last-child");
+    await new Promise((r) => setTimeout(r, 2000));
     await page.click(
       "#pageContent > div.datatable > div:nth-child(6) > table > tbody > tr:nth-child(2) > td.id-cell.dark.left > a"
     );
@@ -96,6 +119,17 @@ const puppeteer = require("puppeteer");
       );
       option.value = quesNum;
     }, quesNum);
+    await page.waitForSelector(
+      "#pageContent > form > table > tbody > tr:nth-child(3) > td:nth-child(2) > select"
+    );
+    await page.evaluate(() => {
+      const option = document.querySelector(
+        "#pageContent > form > table > tbody > tr:nth-child(3) > td:nth-child(2) > select"
+      );
+      option.value = "54";
+    });
+    await new Promise((r) => setTimeout(r, 1000));
+
     await page.click("#editor > div.ace_scroller > div");
     await page.click("#editor > div.ace_scroller > div");
     await page.keyboard.down("Control");
