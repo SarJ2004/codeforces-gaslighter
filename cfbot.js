@@ -6,9 +6,9 @@ const puppeteer = require("puppeteer");
   await page.click('a[href="/enter?back=%2F"]');
   await new Promise((r) => setTimeout(r, 1000));
 
-  await page.type("#handleOrEmail", "sargeDevX");
+  await page.type("#handleOrEmail", "username");
   await new Promise((r) => setTimeout(r, 2000));
-  await page.type("#password", "sarthak2004cf");
+  await page.type("#password", "password");
   await page.click(".submit");
 
   // await page.focus(".notice");
